@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import ProductType, Products, Customer, Order
+from .models import ProductType, Products, Customer, Order, Debt
 from users.models import CustomUser
 
 
@@ -52,7 +52,7 @@ class OrdersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['id', 'date', 'product', 'quantity', 'total_price', 'final_price', 'name', 'customer']
+        fields = ['id', 'date', 'product', 'quantity', 'total_price', 'final_price', 'name', 'customer', 'payment', 'debt_amount']
 
     def validate(self, data):
         product = data.get('product')
@@ -80,3 +80,10 @@ class OrdersSerializer(serializers.ModelSerializer):
 
         order = Order.objects.create(**validated_data)
         return order
+
+
+class DebtSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Debt
+        fields = ['id', 'date', 'product', 'customer', 'due_date']
