@@ -52,7 +52,7 @@ class OrdersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ['id', 'date', 'product', 'quantity', 'total_price', 'final_price', 'name', 'customer', 'payment', 'debt_amount']
+        fields = ['id', 'date', 'product', 'quantity', 'total_price', 'final_price', 'name', 'customer', 'payment', 'debt_amount', 'status']
 
     def validate(self, data):
         product = data.get('product')

@@ -41,6 +41,12 @@ class Customer(models.Model):
 
 
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+        ('canceled', 'Canceled'),
+    ]
+
     date = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=255)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -50,6 +56,7 @@ class Order(models.Model):
     final_price = models.DecimalField(max_digits=30, decimal_places=2)
     payment = models.DecimalField(max_digits=30, decimal_places=2)
     debt_amount = models.DecimalField(max_digits=30, decimal_places=2, editable=False)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 
     def save(self, *args, **kwargs):
         self.final_price = self.final_price if self.final_price is not None else Decimal('0.00')
@@ -57,6 +64,14 @@ class Order(models.Model):
 
         self.total_price = self.product.price * self.quantity
         self.debt_amount = self.final_price - self.payment
+
+        if self.payment == 0:
+            self.status = 'canceled'
+        elif self.debt_amount > 0:
+            self.status = 'pending'
+        else:
+            self.status = 'completed'
+
         super(Order, self).save(*args, **kwargs)
 
         if self.debt_amount > 0:

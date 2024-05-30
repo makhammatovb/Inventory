@@ -32,7 +32,7 @@ class ProductsViewSet(viewsets.ModelViewSet):
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    # permission_classes = [IsAuthorOrReadOnly]
+    permission_classes = [IsAuthorOrReadOnly]
 
 
 class OrdersViewSet(viewsets.ModelViewSet):
@@ -55,3 +55,12 @@ class DebtViewSet(viewsets.ModelViewSet):
             return Debt.objects.all()
         else:
             return Debt.objects.none()
+
+
+class MyOrdersView(generics.ListAPIView):
+    serializer_class = OrdersSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Order.objects.filter(customer__email=user.email)
