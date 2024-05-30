@@ -44,7 +44,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Customer
-        fields = ['name']
+        fields = ['name', 'email']
 
 
 class OrdersSerializer(serializers.ModelSerializer):

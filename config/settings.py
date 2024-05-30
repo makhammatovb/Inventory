@@ -213,3 +213,5 @@ EMAIL_HOST_PASSWORD = 'zxot dgwk ohtk wfvu'
 # EMAIL_USE_SSL = True
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+LOGIN_URL = 'token/'
