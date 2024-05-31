@@ -7,7 +7,8 @@ from .views import (ProductTypeViewSet,
                     CustomerViewSet,
                     DebtViewSet,
                     MyOrdersView,
-                    # MyDebtsView
+                    # MyDebtsView,
+                    my_api_view,
 )
 
 router = DefaultRouter()
@@ -22,4 +23,5 @@ urlpatterns = router.urls
 urlpatterns += [
     path('my-orders/', MyOrdersView.as_view(), name='my_orders'),
     # path('my-debts/', MyDebtsView.as_view(), name='my_debts'),
+    path('my-details/', my_api_view, name='my_details'),
 ]

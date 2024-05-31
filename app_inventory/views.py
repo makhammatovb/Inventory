@@ -79,3 +79,17 @@ class MyOrdersView(generics.ListAPIView):
 #             return Response({'total_debt': total_debt})
 #         else:
 #             return Response({'error': 'User does not have an associated customer.'}, status=400)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def my_api_view(request):
+    user = request.user
+    user_details = {
+        'id': user.id,
+        'username': user.username,
+        'email': user.email,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+    }
+    return Response(user_details)
