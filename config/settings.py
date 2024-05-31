@@ -214,4 +214,4 @@ EMAIL_HOST_PASSWORD = 'zxot dgwk ohtk wfvu'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-LOGIN_URL = 'token/'
+LOGIN_URL = 'api/token/'

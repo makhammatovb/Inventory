@@ -72,6 +72,9 @@ class Order(models.Model):
         else:
             self.status = 'completed'
 
+        if self.status == 'canceled':
+            return
+
         super(Order, self).save(*args, **kwargs)
 
         if self.debt_amount > 0:

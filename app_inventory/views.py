@@ -1,4 +1,4 @@
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, views
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
@@ -64,3 +64,18 @@ class MyOrdersView(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return Order.objects.filter(customer__email=user.email)
+
+
+# class MyDebtsView(views.APIView):
+#     permission_classes = [IsAuthenticated]
+#
+#     def get(self, request, *args, **kwargs):
+#         user = request.user
+#
+#         # Ensure that the user has an associated customer
+#         if hasattr(user, 'customer'):
+#             customer = user.customer
+#             total_debt = Debt.objects.filter(customer=customer).aggregate(total=Sum('debt_amount'))['total'] or 0
+#             return Response({'total_debt': total_debt})
+#         else:
+#             return Response({'error': 'User does not have an associated customer.'}, status=400)

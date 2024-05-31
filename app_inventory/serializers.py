@@ -83,7 +83,8 @@ class OrdersSerializer(serializers.ModelSerializer):
 
 
 class DebtSerializer(serializers.ModelSerializer):
+    customer = CustomerSerializer(read_only=True)
 
     class Meta:
         model = Debt
-        fields = ['id', 'date', 'product', 'customer', 'due_date']
+        fields = ['id', 'date', 'product', 'customer', 'due_date', 'debt_amount']
