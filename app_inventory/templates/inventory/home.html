@@ -1,0 +1,11 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to App Inventory</h1>
+    <p>Explore our products below.</p>
+    <a class="btn btn-primary" href="{% url 'product_list' %}">View Products</a>
+</div>
+{% endblock %}

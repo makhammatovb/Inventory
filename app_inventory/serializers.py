@@ -11,11 +11,11 @@ class SellerSerializer(serializers.ModelSerializer):
         fields = ['first_name', 'last_name']
 
 
-class NameSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = ProductType
-        fields = ['name']
+# class NameSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model =
+#         fields = ['name']
 
 
 class ProductTypeSerializer(serializers.ModelSerializer):

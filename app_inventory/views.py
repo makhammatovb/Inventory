@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.shortcuts import render, get_object_or_404
 
 from .models import ProductType, Products, Customer, Order, Debt
 from .serializers import ProductTypeSerializer, ProductsSerializer, CustomerSerializer, OrdersSerializer, DebtSerializer
@@ -93,3 +94,15 @@ def my_api_view(request):
         'last_name': user.last_name,
     }
     return Response(user_details)
+
+
+def home(request):
+    return render(request, 'inventory/home.html')
+
+def product_list(request):
+    products = Products.objects.all()
+    return render(request, 'inventory/product_list.html', {'products': products})
+
+def product_detail(request, pk):
+    product = get_object_or_404(Products, pk=product_id)
+    return render(request, 'inventory/product_detail.html', {'product': product})

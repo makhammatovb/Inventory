@@ -2,6 +2,7 @@ from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 from os import getenv
+import os
 
 load_dotenv()
 
@@ -24,6 +25,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 DJANGO_DEFAULT_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -63,7 +65,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'app_inventory/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,14 +129,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-if DEBUG is False:
-    # STATIC_ROOT = '/home/my_domain/domain_dir/static/'
-    STATIC_ROOT = 'static'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 # Default primary key field type
@@ -244,3 +243,12 @@ EMAIL_HOST_PASSWORD = 'zxot dgwk ohtk wfvu'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 LOGIN_URL = 'api/token/'
+
+JAZZMIN_SETTINGS = {
+    'site_title': 'Inventory Admin',
+    'site_logo': '/media/logo.jpg',
+    'site_header': 'Inventory Dashboard',
+    'welcome_sign': 'Welcome to Inventory Admin',
+    'show_ui_builder': True,
+    'theme': 'darkly',
+}

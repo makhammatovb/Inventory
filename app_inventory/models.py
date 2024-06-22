@@ -8,6 +8,9 @@ from users.models import CustomUser
 class ProductType(models.Model):
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
 
 class Products(models.Model):
     product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
@@ -15,7 +18,7 @@ class Products(models.Model):
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
-    seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    # seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -86,7 +89,7 @@ class Order(models.Model):
             )
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.product}"
 
     class Meta:
         db_table = 'order'
